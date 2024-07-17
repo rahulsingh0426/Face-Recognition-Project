@@ -24,13 +24,15 @@ def main(source=0):
                 name = "Unknown"
                 if best_match_index is not None and face_distances[best_match_index] < 0.6:
                     name = known_names[best_match_index]
-                    logging.info(f"Recognized face: {name} with distance: {face_distances[best_match_index]}")
+                    logging.info(f"Recognized {name} with distance: {face_distances[best_match_index]}")
                     # Draw a green rectangle around recognized faces
                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
                 else:
-                    name = input("Enter the name for the detected unknown face: ")
-                    logging.info(f"Unrecognized face detected and saved to CSV as {name}.")
-                    save_faces_to_csv([face_encoding], [name])
+                    name = input("Enter name for the unrecognized face: ")
+                    known_encodings.append(face_encoding)
+                    known_names.append(name)
+                    save_faces_to_csv([(name, face_encoding)])
+                    logging.info(f"Unrecognized face saved as {name}.")
                     # Draw a red rectangle around unrecognized faces
                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
                 
