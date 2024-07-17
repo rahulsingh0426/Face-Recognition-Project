@@ -19,3 +19,9 @@ def load_faces_from_csv(file_name="data/faces.csv"):
             known_names.append(name)
             known_encodings.append(encoding)
     return known_encodings, known_names
+
+def log_recognized_face(name, file_name="data/recognized_faces.csv"):
+    with open(file_name, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        row = [name, datetime.datetime.now()]
+        writer.writerow(row)

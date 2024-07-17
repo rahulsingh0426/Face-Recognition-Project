@@ -2,7 +2,7 @@ import cv2
 import logging
 import face_recognition
 from utils.capture import capture_frames
-from utils.csv_utils import save_faces_to_csv, load_faces_from_csv
+from utils.csv_utils import save_faces_to_csv, load_faces_from_csv, log_recognized_face
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -25,6 +25,7 @@ def main(source=0):
                 if best_match_index is not None and face_distances[best_match_index] < 0.6:
                     name = known_names[best_match_index]
                     logging.info(f"Recognized {name} with distance: {face_distances[best_match_index]}")
+                    log_recognized_face(name)
                     # Draw a green rectangle around recognized faces
                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
                 else:
