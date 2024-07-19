@@ -1,7 +1,7 @@
 import cv2
 
-def capture_frames(source="video.mp4"):
-    cap = cv2.VideoCapture("video.mp4")
+def capture_frames(source=0):
+    cap = cv2.VideoCapture(source)
     while True:
         ret, frame = cap.read()
         if not ret:
